@@ -1,5 +1,5 @@
 <?php
-
+// src/Entity/Auteur.php
 namespace App\Entity;
 
 use App\Repository\AuteurRepository;
@@ -10,23 +10,23 @@ class Auteur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Nom = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $prénom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Date_de_naissance = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTime $dateDeNaissance = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Date_de_création = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTime $dateDeCréation = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Date_de_modification = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTime $dateDeModification = null;
 
     public function getId(): ?int
     {
@@ -35,13 +35,12 @@ class Auteur
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): static
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
-
+        $this->nom = $nom;
         return $this;
     }
 
@@ -50,46 +49,42 @@ class Auteur
         return $this->prénom;
     }
 
-    public function setPrénom(string $prénom): static
+    public function setPrénom(string $prénom): self
     {
         $this->prénom = $prénom;
-
         return $this;
     }
 
-    public function getDateDeNaissance(): ?string
+    public function getDateDeNaissance(): ?\DateTime
     {
-        return $this->Date_de_naissance;
+        return $this->dateDeNaissance;
     }
 
-    public function setDateDeNaissance(string $Date_de_naissance): static
+    public function setDateDeNaissance(\DateTime $dateDeNaissance): self
     {
-        $this->Date_de_naissance = $Date_de_naissance;
-
+        $this->dateDeNaissance = $dateDeNaissance;
         return $this;
     }
 
-    public function getDateDeCréation(): ?string
+    public function getDateDeCréation(): ?\DateTime
     {
-        return $this->Date_de_création;
+        return $this->dateDeCréation;
     }
 
-    public function setDateDeCréation(string $Date_de_création): static
+    public function setDateDeCréation(\DateTime $dateDeCréation): self
     {
-        $this->Date_de_création = $Date_de_création;
-
+        $this->dateDeCréation = $dateDeCréation;
         return $this;
     }
 
-    public function getDateDeModification(): ?string
+    public function getDateDeModification(): ?\DateTime
     {
-        return $this->Date_de_modification;
+        return $this->dateDeModification;
     }
 
-    public function setDateDeModification(string $Date_de_modification): static
+    public function setDateDeModification(\DateTime $dateDeModification): self
     {
-        $this->Date_de_modification = $Date_de_modification;
-
+        $this->dateDeModification = $dateDeModification;
         return $this;
     }
 }

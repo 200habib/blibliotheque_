@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Welcome to the Book Search</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/99MFOVA-PP026-W/Desktop/Personal_Project/SYMFONY/WEB/blibliotheque_/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/Users/99MFOVA-PP026-W/Desktop/Personal_Project/SYMFONY/WEB/blibliotheque_/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+    {% if books is not empty %}
+        <h2>Search Results:</h2>
+        <ul>
+            {% for book in books %}
+                <li>{{ book.titre }} - {{ book.description }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
 {% endblock %}

@@ -4,29 +4,41 @@ namespace App\Entity;
 
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $date_de_publication = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $dateDePublication = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Date_de_création = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $dateDeCreation = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Date_de_modification = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $dateDeModification = null;
+
+    #[ORM\ManyToOne(targetEntity: Auteur::class, inversedBy: 'books')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Auteur $auteur = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'books')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null; // Updated property name
+
+    // Getters and setters
 
     public function getId(): ?int
     {
@@ -41,7 +53,6 @@ class Book
     public function setTitre(string $titre): static
     {
         $this->titre = $titre;
-
         return $this;
     }
 
@@ -53,43 +64,61 @@ class Book
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
-    public function getDateDePublication(): ?string
+    public function getDateDePublication(): ?\DateTimeInterface
     {
-        return $this->date_de_publication;
+        return $this->dateDePublication;
     }
 
-    public function setDateDePublication(string $date_de_publication): static
+    public function setDateDePublication(?\DateTimeInterface $dateDePublication): static
     {
-        $this->date_de_publication = $date_de_publication;
-
+        $this->dateDePublication = $dateDePublication;
         return $this;
     }
 
-    public function getDateDeCréation(): ?string
+    public function getDateDeCreation(): ?\DateTimeInterface
     {
-        return $this->Date_de_création;
+        return $this->dateDeCreation;
     }
 
-    public function setDateDeCréation(string $Date_de_création): static
+    public function setDateDeCreation(?\DateTimeInterface $dateDeCreation): static
     {
-        $this->Date_de_création = $Date_de_création;
-
+        $this->dateDeCreation = $dateDeCreation;
         return $this;
     }
 
-    public function getDateDeModification(): ?string
+    public function getDateDeModification(): ?\DateTimeInterface
     {
-        return $this->Date_de_modification;
+        return $this->dateDeModification;
     }
 
-    public function setDateDeModification(string $Date_de_modification): static
+    public function setDateDeModification(?\DateTimeInterface $dateDeModification): static
     {
-        $this->Date_de_modification = $Date_de_modification;
+        $this->dateDeModification = $dateDeModification;
+        return $this;
+    }
 
+    public function getAuteur(): ?Auteur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Auteur $auteur): static
+    {
+        $this->auteur = $auteur;
+        return $this;
+    }
+
+    public function getOwner(): ?User // Updated method name
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static // Updated method name
+    {
+        $this->owner = $owner;
         return $this;
     }
 }
